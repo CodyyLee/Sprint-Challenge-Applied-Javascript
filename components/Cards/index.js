@@ -27,7 +27,7 @@ function cards(cardHead, imgSrc, authName) {
     const authorName = document.createElement("span");
 
     card.appendChild(headline);
-    headline.appendChild(author);
+    card.appendChild(author);
     author.appendChild(imgContainer);
     author.appendChild(authorName);
     imgContainer.appendChild(img);
@@ -47,31 +47,13 @@ function cards(cardHead, imgSrc, authName) {
 const cardsContainer = document.querySelector(".cards-container");
 
 axios.get("https://lambda-times-backend.herokuapp.com/articles").then(function(res) {
-    // console.log(res);
-    res.data.articles.forEach(function(element){
+    let values = Object.values(res.data.articles);
+
+    values.forEach(function(element) {
         element.forEach(function(ele) {
-             cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-            })
+            cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
+        })
     })
-    // res.data.articles.bootstrap.forEach(function(ele) {
-    //     cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-    // })
-
-    // res.data.articles.javascript.forEach(function(ele) {
-    //     cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-    // })
-
-    // res.data.articles.jquery.forEach(function(ele) {
-    //     cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-    // })
-
-    // res.data.articles.node.forEach(function(ele) {
-    //     cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-    // })
-
-    // res.data.articles.technology.forEach(function(ele) {
-    //     cardsContainer.appendChild(cards(ele.headline, ele.authorPhoto, ele.authorName));
-    // })
 }).catch(function(err) {
     console.log(err);
 })
